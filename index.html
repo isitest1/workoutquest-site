@@ -3,30 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WorkoutQuest サポート</title>
+<title>WorkoutQuest サポート / Support</title>
 <style>
   :root { --primary:#6760EB; --bg:#f6f6fb; --card:#fff; --text:#1c1c22; --muted:#6b6b76; }
   * { box-sizing:border-box; }
   body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif; background:var(--bg); color:var(--text); line-height:1.75; }
-  .hero { background:linear-gradient(135deg,#8B84F5,#4f47c9); color:#fff; padding:56px 20px; text-align:center; }
+  .hero { background:linear-gradient(135deg,#8B84F5,#4f47c9); color:#fff; padding:48px 20px 40px; text-align:center; }
   .hero h1 { margin:0 0 8px; font-size:28px; }
   .hero p { margin:0; opacity:.95; }
+  .lang { display:inline-flex; margin-top:22px; border:1px solid rgba(255,255,255,.5); border-radius:999px; overflow:hidden; }
+  .lang button { border:0; background:transparent; color:#fff; padding:8px 18px; font-size:14px; font-weight:600; cursor:pointer; }
+  .lang button.active { background:#fff; color:var(--primary); }
   .wrap { max-width:720px; margin:0 auto; padding:24px 20px 64px; }
   .card { background:var(--card); border-radius:16px; padding:24px; margin:18px 0; box-shadow:0 1px 4px rgba(0,0,0,.06); }
   h2 { font-size:20px; margin-top:0; }
   a { color:var(--primary); }
   .btn { display:inline-block; background:var(--primary); color:#fff; text-decoration:none; padding:12px 20px; border-radius:12px; font-weight:600; }
   .muted { color:var(--muted); font-size:14px; }
-  ul { padding-left:1.2em; }
+  ul, ol { padding-left:1.2em; }
   footer { text-align:center; padding:24px; color:var(--muted); font-size:13px; }
+  [hidden] { display:none !important; }
 </style>
 </head>
 <body>
   <div class="hero">
     <h1>WorkoutQuest</h1>
-    <p>相棒と続ける、報酬型の筋トレ習慣化アプリ</p>
+    <p data-ja>相棒と続ける、報酬型の筋トレ習慣化アプリ</p>
+    <p data-en hidden>A reward-based workout-habit app you'll actually stick with</p>
+    <div class="lang" role="group" aria-label="Language">
+      <button id="btn-ja" onclick="setLang('ja')">日本語</button>
+      <button id="btn-en" onclick="setLang('en')">English</button>
+    </div>
   </div>
-  <div class="wrap">
+
+  <!-- ===================== 日本語 ===================== -->
+  <div class="wrap" data-ja>
     <div class="card">
       <h2>お問い合わせ・サポート</h2>
       <p>ご質問・ご要望・不具合のご報告は、以下のメールまでお気軽にご連絡ください。</p>
@@ -65,6 +76,66 @@
       <p>本アプリはデータを収集しません。詳しくは <a href="./privacy.html">プライバシーポリシー</a> をご覧ください。</p>
     </div>
   </div>
+
+  <!-- ===================== English ===================== -->
+  <div class="wrap" data-en hidden>
+    <div class="card">
+      <h2>Contact & Support</h2>
+      <p>For questions, requests, or bug reports, feel free to email us at the address below.</p>
+      <p><a class="btn" href="mailto:kouhei10@gmail.com">Email kouhei10@gmail.com</a></p>
+      <p class="muted">We usually reply within 2–3 days.</p>
+    </div>
+
+    <div class="card">
+      <h2>About WorkoutQuest</h2>
+      <p>Set a workout for each day of the week, and your buddy “Sprout” gives you a gentle nudge at your chosen time. Finish it and Sprout grows, your streak builds, and you collect badges — a habit app you'll actually want to keep using. It's reward-based and never scolds you, and it fully embraces rest days.</p>
+      <ul>
+        <li>No ads · no account · fully offline</li>
+        <li>Reminders for each weekday</li>
+        <li>Per-exercise progress charts to visualize your effort</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>How to use (3 easy steps)</h2>
+      <ol>
+        <li><b>Set your menu</b>: choose what to do on each weekday (e.g. Mon: Pull-ups 10×3).</li>
+        <li><b>Get a reminder</b>: your buddy nudges you at your set time.</li>
+        <li><b>Swipe to complete</b>: swipe right when you're done. Earn XP and watch your buddy grow.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>FAQ</h2>
+      <p><b>Q. Notifications aren't arriving.</b><br>A. Check that notifications are allowed in iPhone Settings &gt; Notifications &gt; WorkoutQuest. You can also toggle notifications and change the time inside the app's settings.</p>
+      <p><b>Q. My streak reset.</b><br>A. It resets if you miss a scheduled day, but rest days don't affect it. On days you're unwell, you can mark a rest day from “I want to rest today.”</p>
+      <p><b>Q. Can I move my data to another device?</b><br>A. Currently data is stored only on your device (offline by design).</p>
+    </div>
+
+    <div class="card">
+      <h2>Privacy</h2>
+      <p>This app collects no data. See our <a href="./privacy.html">Privacy Policy</a> for details.</p>
+    </div>
+  </div>
+
   <footer>© 2026 WorkoutQuest</footer>
+
+<script>
+  function setLang(lang){
+    var ja = lang === 'ja';
+    document.querySelectorAll('[data-ja]').forEach(function(e){ e.hidden = !ja; });
+    document.querySelectorAll('[data-en]').forEach(function(e){ e.hidden = ja; });
+    document.getElementById('btn-ja').classList.toggle('active', ja);
+    document.getElementById('btn-en').classList.toggle('active', !ja);
+    document.documentElement.lang = lang;
+    document.title = ja ? 'WorkoutQuest サポート' : 'WorkoutQuest Support';
+    try { localStorage.setItem('wq_lang', lang); } catch(e){}
+  }
+  (function(){
+    var saved=null; try { saved=localStorage.getItem('wq_lang'); } catch(e){}
+    var lang = saved || ((navigator.language||'en').toLowerCase().indexOf('ja')===0 ? 'ja' : 'en');
+    setLang(lang);
+  })();
+</script>
 </body>
 </html>
